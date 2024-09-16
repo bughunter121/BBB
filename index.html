@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Dork Search Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: transparent; /* Background set to transparent */
+            overflow: hidden; /* Prevent scrolling */
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 22px);
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 18px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .futuristic-button {
+            position: relative;
+            padding: 12px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            overflow: hidden;
+            text-align: center;
+            min-width: 200px;
+            flex: 1;
+        }
+
+        .futuristic-button:hover {
+            background-color: #0056b3;
+        }
+
+        .futuristic-button:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        .futuristic-button:active:after {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* Particles.js container */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Water Effect Background -->
+    <div id="particles-js"></div>
+
+    <div class="container">
+        <h1>Google Dork Search Tool</h1>
+        <input type="text" id="domain" placeholder="Enter domain (e.g., example.com)">
+        <div class="button-container">
+            <button class="futuristic-button" onclick="playSound(); googleSearch('Directory listing vulnerabilities')">Directory listing vulnerabilities</button>
+            <button class="futuristic-button" onclick="playSound(); googleSearch('Exposed Configuration files')">Exposed Configuration files</button>
+            <button class="futuristic-button" onclick="playSound(); googleSearch('Exposed Database files')">Exposed Database files</button>
+            <button class="futuristic-button" onclick="playSound(); googleSearch('Exposed log files')">Exposed log files</button>
+            <button class="futuristic-button" onclick="playSound(); googleSearch('Backup and old files')">Backup and old files</button>
+            <button class="futuristic-button" onclick="playSound(); googleSearch('Login pages')">Login pages</button>
+        </div>
+    </div>
+
+    <script>
+        // Function to handle Google search
+        function googleSearch(queryLabel) {
+            const domain = document.getElementById('domain').value.trim();
+            if (domain) {
+                const dorks = {
+                    'Directory listing vulnerabilities': `intitle:"Index of" ${domain}`,
+                    'Exposed Configuration files': `filetype:conf ${domain}`,
+                    'Exposed Database files': `filetype:sql ${domain}`,
+                    'Exposed log files': `filetype:log ${domain}`,
+                    'Backup and old files': `intitle:"Index of" backup ${domain}`,
+                    'Login pages': `inurl:login ${domain}`,
+                };
+
+                const query = dorks[queryLabel];
+                if (query) {
+                    const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+                    window.open(searchUrl, '_blank');
+                } else {
+                    alert('Search query not defined.');
+                }
+            } else {
+                alert('Please enter a domain.');
+            }
+        }
+
+        // Function to play button click sound
+        function playSound() {
+            var audio = new Audio('click-sound.mp3'); // Ensure the audio file is placed correctly
+            audio.play();
+        }
+    </script>
+
+    <!-- Particles.js integration -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Initialize particles.js
+        particlesJS("particles-js", {
+            "particles": {
+                "number": {
+                    "value": 100,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#ffffff"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 5,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": false
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 6,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "bubble"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "repulse"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "bubble": {
+                        "distance": 400,
+                        "size": 4,
+                        "duration": 0.3,
+                        "opacity": 1,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+    </script>
+</body>
+</html>
